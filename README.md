@@ -16,9 +16,10 @@
   - [3.2 Bewertung und Vergleich der Profile](#32-bewertung-und-vergleich-der-profile)
   - [3.3 Auswahl und Empfehlung](#33-auswahl-und-empfehlung)
 - [4. Methodik und Umsetzung](#4-methodik-und-umsetzung)
-  - [4.1 Testumgebung und Infrastruktur](#41-testumgebung-und-infrastruktur)
-  - [4.2 Workflow: Scan, Reporting und Remediation](#42-workflow-scan-reporting-und-remediation)
-  - [4.3 Automatisierte Umsetzung mit Ansible](#43-automatisierte-umsetzung-mit-ansible)
+  - [4.1 Risikoabschätzung vor der Härtung](#4-risikoabschäzung-vor-der-härtung)
+  - [4.2 Testumgebung und Infrastruktur](#41-testumgebung-und-infrastruktur)
+  - [4.3 Workflow: Scan, Reporting und Remediation](#42-workflow-scan-reporting-und-remediation)
+  - [4.4 Automatisierte Umsetzung mit Ansible](#43-automatisierte-umsetzung-mit-ansible)
 - [5. Ergebnisse und Auswertung](#5-ergebnisse-und-auswertung)
   - [5.1 Vorher-/Nachher-Analyse](#51-vorher-nachher-analyse)
   - [5.2 Auszüge aus OpenSCAP-Reports](#52-auszuege-aus-openscap-reports)
@@ -52,9 +53,9 @@ Die Arbeit verfolgt damit zwei zentrale Ziele:
 Die folgenden Kapitel geben zunächst einen Überblick über die theoretischen Grundlagen von Systemhärtung, SCAP und OpenSCAP.  
 Anschließend werden die OpenSCAP-Profile analysiert, ein Proof-of-Concept mit Ansible-Automatisierung durchgeführt und die Ergebnisse ausgewertet, bevor die Arbeit mit einem Fazit und Ausblick abgeschlossen wird.
 
-# 5. Theoretische Grundlagen
+# 2. Theoretische Grundlagen
 
-## 5.1 Systemhärtung und Compliance
+## 2.1 Systemhärtung und Compliance
 
 Systemhärtung bezeichnet den Prozess, die Angriffsfläche von IT-Systemen durch gezielte Maßnahmen zu reduzieren.  
 Dazu gehören das Deaktivieren nicht benötigter Dienste, die Einschränkung von Benutzerrechten, das Konfigurieren sicherer Kommunikationsprotokolle und die zeitnahe Einspielung sicherheitsrelevanter Updates.  
@@ -75,7 +76,7 @@ Die Umsetzung dieser Vorgaben dient nicht nur der Risikoreduktion, sondern stell
 Da moderne IT-Landschaften häufig aus mehreren hundert oder tausend Systemen bestehen, sind manuelle Verfahren zur Umsetzung von Härtungsrichtlinien fehleranfällig und schwer nachzuvollziehen.  
 Aus diesem Grund setzen Unternehmen zunehmend auf automatisierte Prozesse und standardisierte Frameworks, die eine konsistente und nachvollziehbare Systemhärtung ermöglichen.
 
-## 5.2 SCAP-Standard
+## 2.2 SCAP-Standard
 
 Das Security Content Automation Protocol (SCAP) ist ein von NIST entwickelter Standard, der die automatisierte Sicherheitsbewertung und Compliance-Prüfung von IT-Systemen ermöglicht.  
 SCAP definiert einheitliche Formate und Mechanismen, um Konfigurationsrichtlinien, Schwachstelleninformationen und Prüfergebnisse maschinenlesbar zu machen.  
@@ -93,7 +94,7 @@ Durch die Kombination dieser Komponenten ermöglicht SCAP eine wiederholbare, st
 Organisationen können damit Sicherheitsrichtlinien konsistent anwenden und ihre Compliance gegenüber internen und externen Anforderungen nachweisen.  
 SCAP bildet die Grundlage für Werkzeuge wie OpenSCAP, die diese Standards implementieren und automatisieren.
 
-## 5.3 OpenSCAP – Funktionsweise und Nutzen
+## 2.3 OpenSCAP – Funktionsweise und Nutzen
 
 OpenSCAP ist die von der Community bereitgestellte Referenzimplementierung des SCAP-Standards und wird in zahlreichen Enterprise-Linux-Distributionen wie RHEL, Rocky Linux und Fedora nativ unterstützt.  
 Es bietet Funktionen für die Analyse von Systemkonfigurationen, die Überprüfung auf Compliance mit anerkannten Benchmarks und die automatisierte Umsetzung von Härtungsempfehlungen.
@@ -109,7 +110,7 @@ Der Nutzen von OpenSCAP liegt in der Kombination aus Standardkonformität, Autom
 Unternehmen erhalten mit vergleichsweise geringem Aufwand nachvollziehbare und prüffähige Ergebnisse über den Sicherheitsstatus ihrer Systeme.  
 Besonders in großen Umgebungen mit hunderten von Servern ermöglicht OpenSCAP die Einführung eines reproduzierbaren und skalierbaren Härtungsprozesses.
 
-## 5.4 Ansible als Automatisierungsframework
+## 2.4 Ansible als Automatisierungsframework
 
 Ansible ist ein Open-Source-Framework für IT-Automatisierung und wird vor allem für Konfigurationsmanagement, Softwareverteilung und Orchestrierung von Infrastruktur eingesetzt.  
 Es basiert auf einer agentlosen Architektur, die ausschließlich auf SSH-Kommunikation mit den Zielsystemen angewiesen ist, und ermöglicht dadurch eine einfache Integration in bestehende Umgebungen ohne zusätzliche Agenteninstallation.
@@ -125,13 +126,13 @@ Für die automatisierte Systemhärtung bietet die Kombination von Ansible mit Op
 Ansible kann die Durchführung von SCAP-Scans zentral steuern, Ergebnisse einsammeln und bei Bedarf die empfohlene Remediation automatisch umsetzen.  
 Durch die Möglichkeit, diese Prozesse regelmäßig und reproduzierbar auszuführen, entsteht ein skalierbarer und auditfähiger Härtungsworkflow.
 
-## 5.5 Vergleich mit alternativen Frameworks und Begründung der Wahl
+## 2.5 Vergleich mit alternativen Frameworks und Begründung der Wahl
 
 Die Auswahl geeigneter Werkzeuge für die automatisierte Systemhärtung und Compliance-Prüfung ist entscheidend für den erfolgreichen Betrieb sicherer IT-Infrastrukturen.  
 Neben OpenSCAP und Ansible existieren verschiedene andere Frameworks und Tools, die ähnliche Funktionen in den Bereichen Sicherheitsanalyse, Compliance-Check und Konfigurationsmanagement anbieten.  
 Eine vergleichende Analyse ist notwendig, um die Eignung von OpenSCAP in Kombination mit Ansible zu begründen.
 
-### 5.5.1 Vergleich von Security- und Compliance-Frameworks
+### 2.5.1 Vergleich von Security- und Compliance-Frameworks
 
 Für die Prüfung von Linux-Systemen auf Sicherheitskonformität und die Umsetzung von Härtungsmaßnahmen werden insbesondere folgende Tools eingesetzt:
 
@@ -143,7 +144,7 @@ OpenSCAP hebt sich durch seine strikte Ausrichtung auf den SCAP-Standard ab.
 Die Nutzung standardisierter Profile ermöglicht reproduzierbare Audits, automatische Berichterstellung und die einfache Nachweisführung gegenüber internen und externen Auditoren.  
 Darüber hinaus erlaubt OpenSCAP die Umsetzung empfohlener Sicherheitsmaßnahmen direkt auf den geprüften Systemen, wodurch eine enge Verbindung von Analyse und Remediation entsteht.
 
-### 5.5.2 Vergleich von Automatisierungs-Frameworks
+### 2.5.2 Vergleich von Automatisierungs-Frameworks
 
 Für die Automatisierung der Härtung und die Umsetzung von Sicherheitsrichtlinien kommen verschiedene Konfigurationsmanagement-Werkzeuge in Betracht:
 
@@ -155,7 +156,7 @@ Ansible zeichnet sich im direkten Vergleich durch seine agentlose Architektur, d
 Die deklarative Beschreibung von Härtungsmaßnahmen in YAML-Playbooks erleichtert die Versionierung und Wiederverwendbarkeit.  
 In Verbindung mit OpenSCAP entsteht ein schlanker, reproduzierbarer Workflow, der ohne zusätzliche Infrastruktur auskommt.
 
-### 5.5.3 Begründung der Wahl
+### 2.5.3 Begründung der Wahl
 
 Die Entscheidung für OpenSCAP in Kombination mit Ansible basiert auf folgenden Faktoren:
 
@@ -168,13 +169,13 @@ Die Entscheidung für OpenSCAP in Kombination mit Ansible basiert auf folgenden 
 Durch die Kombination der beiden Werkzeuge entsteht ein praxisnaher Ansatz zur Systemhärtung, der sowohl die technischen Sicherheitsanforderungen als auch die steigenden Compliance-Erfordernisse moderner Unternehmen erfüllt.
 
 
-# 6. Analyse der OpenSCAP-Profile
+# 3. Analyse der OpenSCAP-Profile
 
 OpenSCAP nutzt vordefinierte Sicherheitsprofile, die auf dem SCAP-Standard basieren.  
 Diese Profile enthalten Richtlinien und Prüfanweisungen, die es ermöglichen, den Sicherheitsstatus eines Systems zu bewerten und mit anerkannten Benchmarks zu vergleichen.  
 Die Auswahl des richtigen Profils ist entscheidend, da es die Grundlage für die Bewertung und die spätere Umsetzung von Härtungsmaßnahmen bildet.
 
-## 6.1 Übersicht verfügbarer SCAP-Profile
+## 3.1 Übersicht verfügbarer SCAP-Profile
 
 OpenSCAP stellt je nach Betriebssystem verschiedene vordefinierte Profile bereit.  
 Die wichtigsten Profile für Linux-Umgebungen sind:
@@ -199,7 +200,7 @@ Die wichtigsten Profile für Linux-Umgebungen sind:
 Neben den genannten Profilen existieren auch branchenspezifische oder intern angepasste Profile,
 die aus den bestehenden Benchmarks abgeleitet und auf die Anforderungen der jeweiligen Organisation zugeschnitten werden.
 
-## 6.2 Bewertung und Vergleich der Profile
+## 3.2 Bewertung und Vergleich der Profile
 
 Die Wahl des passenden Profils hängt stark von den Sicherheitsanforderungen, der Betriebsumgebung und der Akzeptanz von Funktionseinschränkungen ab.  
 Für die vorliegende Arbeit wurden die gängigen OpenSCAP-Profile anhand folgender Kriterien bewertet:
@@ -227,7 +228,7 @@ Die Bewertung zeigt, dass ein abgestuftes Vorgehen sinnvoll ist.
 Für produktive Unternehmensumgebungen bietet sich häufig ein CIS Level 1 Profil als Ausgangspunkt an,
 während CIS Level 2 oder STIG-Profile für besonders kritische Systeme reserviert werden.
 
-## 6.3 Auswahl und Empfehlung
+## 3.3 Auswahl und Empfehlung
 
 Für die im Rahmen dieser Arbeit geplante Umsetzung wurde das CIS Level 1 Profil für Rocky Linux 9 ausgewählt.  
 Die Gründe für diese Entscheidung sind:
@@ -244,14 +245,37 @@ welche Profile sich für unterschiedliche Systemkategorien im Unternehmensumfeld
 
 
 
-# 7. Methodik und Umsetzung
+# 4. Methodik und Umsetzung
 
 Die praktische Evaluation dieser Arbeit wurde in einer dedizierten Laborumgebung durchgeführt,  
 die eine typische Enterprise-3-Tier-Architektur nachbildet.  
 Dieses Setup wurde gewählt, um praxisnahe und aussagekräftige Ergebnisse zu erzielen,  
 die sich auf reale Unternehmensumgebungen übertragen lassen.
 
-## 7.1 Testumgebung und Infrastruktur
+## 4.3 Risikoabschätzung vor der Härtung
+
+Vor der Durchführung der Härtungsmaßnahmen wurde eine Risikoanalyse erstellt. 
+Ziel war es, potenzielle Auswirkungen auf die Funktionsfähigkeit der Systeme zu identifizieren 
+und Maßnahmen zur Risikominimierung abzuleiten.
+
+### Identifizierte Risiken
+- Funktionsausfälle von Diensten durch restriktive Einstellungen (z. B. SSH, Firewall, DB-Zugriffe)  
+- Inkompatibilität mit bestehenden Anwendungen (z. B. WildFly, Nginx)  
+- Einschränkungen in der Benutzerfreundlichkeit (z. B. komplexere Passwort-Policies)  
+- Beeinträchtigung von Monitoring/Management durch geänderte Logging-/Audit-Einstellungen  
+
+### Risikobewertung
+- Eintrittswahrscheinlichkeit: mittel  
+- Auswirkungen: hoch (bei produktiven Systemen)  
+- Gesamtrisiko: erheblich, erfordert Tests in isolierter Umgebung  
+
+### Maßnahmen
+- Durchführung in isolierter Testumgebung vor Produktivbetrieb  
+- Schrittweise Einführung der Härtung (erst Scan, dann Remediation)  
+- Dokumentation von Abweichungen (bewusste Ausnahmen, z. B. IPv6)  
+- Rollback-Strategie über Snapshots/Backups  
+
+## 4.2 Testumgebung und Infrastruktur
 
 Das Labor bestand aus insgesamt sechs virtuellen Maschinen, die jeweils eine Rolle  
 in einer klassischen 3-Tier-Anwendungsarchitektur abbildeten:
@@ -287,7 +311,7 @@ Eine zusätzliche Management- und Steuerungsinstanz wurde als Ansible-Control-No
 Diese Instanz war für die Durchführung der OpenSCAP-Scans, das Einsammeln der Reports  
 sowie die automatisierte Remediation zuständig.
 
-## 7.2 Workflow: Scan, Reporting und Remediation
+## 4.3 Workflow: Scan, Reporting und Remediation
 
 Die Vorgehensweise bei der Umsetzung folgte einem klar strukturierten Ablauf:
 
@@ -313,7 +337,7 @@ Die Vorgehensweise bei der Umsetzung folgte einem klar strukturierten Ablauf:
 Diese Methodik stellt sicher, dass der gesamte Härtungszyklus  
 – von der Analyse bis zur Nachweisführung – in einem realistischen Szenario abgebildet wurde.
 
-## 7.3 Automatisierte Umsetzung mit Ansible
+## 4.4 Automatisierte Umsetzung mit Ansible
 
 Die Umsetzung der Härtungsmaßnahmen erfolgte vollständig automatisiert über Ansible.  
 Dabei wurde ein zentrales Playbook eingesetzt, das folgende Schritte abbildete:
@@ -332,7 +356,7 @@ Mit dieser Methodik konnte die Eignung von OpenSCAP und Ansible
 für die Härtung einer repräsentativen Enterprise-Umgebung praxisnah untersucht werden.
 
 
-# 8. Ergebnisse und Auswertung
+# 5. Ergebnisse und Auswertung
 
 Die im Labor aufgebaute 3-Tier-Umgebung erlaubte eine praxisnahe Bewertung der Wirksamkeit von OpenSCAP und Ansible.  
 Durch die Kombination von sechs produktionsnahen Servern mit realen Anwendungen und Datenbanken konnte der gesamte Härtungsprozess in einem für Unternehmen repräsentativen Szenario untersucht werden.
