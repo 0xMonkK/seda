@@ -257,21 +257,24 @@ Das Labor bestand aus insgesamt sechs virtuellen Maschinen, die jeweils eine Rol
 in einer klassischen 3-Tier-Anwendungsarchitektur abbildeten:
 
     • Präsentationsschicht (Web Tier)
+        - HAProxy Loadbalancer
         - lab-web01 und lab-web02
         - Betriebssystem: Rocky Linux 9
         - Installierte Software: Nginx als Reverse Proxy und Apache HTTPD für statische Inhalte
         - Aufgabe: Bereitstellung der Weboberfläche und Weiterleitung von Anfragen an die Applikationsserver
 
     • Applikationsschicht (App Tier)
+        - HAProxy Loadbalancer
         - lab-app01 und lab-app02
         - Betriebssystem: Rocky Linux 9
         - Installierte Software: WildFly Application Server (Java EE) und Python-basierte REST-Services
         - Aufgabe: Ausführung der Business-Logik und Bereitstellung von API-Endpunkten
 
     • Datenhaltungsschicht (Database Tier)
+        - HAProxy Loadbalancer
         - lab-db01 und lab-db02
         - Betriebssystem: Rocky Linux 9
-        - Installierte Software: PostgreSQL 15 und MariaDB 10.11 (Primär-/Replica-Konfiguration)
+        - Installierte Software: PostgreSQL 15 Database cluster
         - Aufgabe: Persistente Speicherung von Anwendungsdaten, Benutzerkonten und Audit-Logs
 
 <img width="1786" height="714" alt="image" src="https://github.com/user-attachments/assets/ff5bb350-0f24-4065-a4ec-de8d8a1bf5b9" />
