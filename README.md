@@ -27,29 +27,6 @@
 - [6. Fazit und Ausblick](#6-fazit-und-ausblick)
   - [6.1 Ausblick](#61-ausblick)
 
-# Management Summary / Abstract
----
-Die vorliegende Arbeit untersucht die automatisierte Systemhärtung von Linux-Systemen mithilfe von OpenSCAP in Kombination mit Ansible.
-Ausgangspunkt ist die Herausforderung, dass Fehlkonfigurationen eine der Hauptursachen für Sicherheitsvorfälle darstellen und die manuelle Umsetzung von Härtungsvorgaben sowohl zeitaufwendig als auch fehleranfällig ist.
-Gleichzeitig fordern Standards wie ISO 27001 und NIST SP 800‑53 ein systematisches Konfigurationsmanagement, das in der Praxis oft schwer nachweisbar ist.
-
-Im Rahmen der Arbeit wird untersucht, inwieweit OpenSCAP als SCAP‑basiertes Framework für Sicherheitsprüfungen und Compliance‑Kontrollen geeignet ist und wie sich diese Prozesse durch die Integration in Ansible automatisieren lassen.
-Dabei werden sowohl die Praxistauglichkeit der verfügbaren SCAP‑Profile (z. B. CIS, STIG) als auch die technische Umsetzbarkeit einer skalierbaren Härtung analysiert.
-
-Wesentliche Erkenntnisse und Nutzen:
-Die Kombination aus OpenSCAP und Ansible ermöglicht eine standardisierte, auditfähige und weitgehend automatisierte Systemhärtung.
-OpenSCAP liefert vollständige Compliance‑Prüfungen und Reports, während Ansible die skalierbare und reproduzierbare Umsetzung der Härtungsvorgaben sicherstellt.
-Unternehmen profitieren von:
-
-Reduzierter Angriffsfläche durch konsequente Umsetzung von Härtungsrichtlinien
-
-Zeit- und Ressourceneinsparungen durch Automatisierung
-
-Verbesserter Compliance-Nachweis für interne und externe Audits
-
-Damit zeigt die Arbeit, dass der integrierte Einsatz von OpenSCAP und Ansible einen praxisnahen Ansatz zur sicheren, effizienten und nachvollziehbaren Systemhärtung bietet.
-
-
 # Einleitung
 
 Die Absicherung von IT-Systemen ist ein zentraler Bestandteil moderner Unternehmenssicherheit.  
