@@ -1,7 +1,7 @@
 # Inhaltsverzeichnis
 
 - [0. Management Summary / Abstract](#0-management-summary--abstract)
-- [1. Einleitung](#1-einleitung)
+1 - [Einleitung](#einleitung)
 - [2. Theoretische Grundlagen](#2-theoretische-grundlagen)
   - [2.1 Systemhärtung und Compliance](#21-systemhaertung-und-compliance)
   - [2.2 SCAP-Standard](#22-scap-standard)
