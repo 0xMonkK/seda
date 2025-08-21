@@ -252,30 +252,7 @@ die eine typische Enterprise-3-Tier-Architektur nachbildet.
 Dieses Setup wurde gewählt, um praxisnahe und aussagekräftige Ergebnisse zu erzielen,  
 die sich auf reale Unternehmensumgebungen übertragen lassen.
 
-## 4.3 Risikoabschätzung vor der Härtung
-
-Vor der Durchführung der Härtungsmaßnahmen wurde eine Risikoanalyse erstellt. 
-Ziel war es, potenzielle Auswirkungen auf die Funktionsfähigkeit der Systeme zu identifizieren 
-und Maßnahmen zur Risikominimierung abzuleiten.
-
-### Identifizierte Risiken
-- Funktionsausfälle von Diensten durch restriktive Einstellungen (z. B. SSH, Firewall, DB-Zugriffe)  
-- Inkompatibilität mit bestehenden Anwendungen (z. B. WildFly, Nginx)  
-- Einschränkungen in der Benutzerfreundlichkeit (z. B. komplexere Passwort-Policies)  
-- Beeinträchtigung von Monitoring/Management durch geänderte Logging-/Audit-Einstellungen  
-
-### Risikobewertung
-- Eintrittswahrscheinlichkeit: mittel  
-- Auswirkungen: hoch (bei produktiven Systemen)  
-- Gesamtrisiko: erheblich, erfordert Tests in isolierter Umgebung  
-
-### Maßnahmen
-- Durchführung in isolierter Testumgebung vor Produktivbetrieb  
-- Schrittweise Einführung der Härtung (erst Scan, dann Remediation)  
-- Dokumentation von Abweichungen (bewusste Ausnahmen, z. B. IPv6)  
-- Rollback-Strategie über Snapshots/Backups  
-
-## 4.2 Testumgebung und Infrastruktur
+## 4.1 Testumgebung und Infrastruktur
 
 Das Labor bestand aus insgesamt sechs virtuellen Maschinen, die jeweils eine Rolle  
 in einer klassischen 3-Tier-Anwendungsarchitektur abbildeten:
@@ -310,6 +287,34 @@ um ein realistisches Sicherheitsmodell abzubilden.
 Eine zusätzliche Management- und Steuerungsinstanz wurde als Ansible-Control-Node betrieben.  
 Diese Instanz war für die Durchführung der OpenSCAP-Scans, das Einsammeln der Reports  
 sowie die automatisierte Remediation zuständig.
+
+## 4.2 Risikoabschätzung vor der Härtung
+
+Die Einführung von Härtungsmaßnahmen stellt in jeder bestehenden Infrastruktur einen Eingriff in kritische Basiskomponenten dar. Ziel ist es, die Sicherheit der Systeme zu erhöhen, gleichzeitig aber den stabilen Betrieb nicht zu gefährden. Vor der Umsetzung ist daher eine Risikoabschätzung erforderlich, um mögliche Nebeneffekte frühzeitig zu erkennen und abzufedern.  
+
+Härtung bedeutet nicht nur die Anpassung von Passwort- oder SSH-Parametern, sondern reicht deutlich weiter. Typische Maßnahmen betreffen das Erzwingen von Mandatory Access Control (z. B. SELinux), die Anpassung von Kernel-Parametern (Sysctl), das Aktivieren oder Verschärfen von Logging und Audit-Mechanismen, die Einschränkung von Netzwerkdiensten über Firewalls sowie das Entfernen nicht benötigter Pakete. Jede dieser Änderungen kann funktionale Abhängigkeiten stören, die Systemadministration erschweren oder im Extremfall den Betrieb unterbrechen.  
+
+Die Risikoabschätzung erfolgte anhand einer qualitativen Bewertung von Eintrittswahrscheinlichkeit und Auswirkung. Als Rahmenbedingungen wurden die im Labor genutzte 3-Tier-Architektur (vgl. Kapitel 7.1) sowie die Auswahl des CIS Level 1 Profils (vgl. Kapitel 6.3) zugrunde gelegt.  
+
+### Tabelle: Risikoabschätzung im Labor
+
+| Risiko                                       | Beschreibung                                                                                 | Eintrittswahrscheinlichkeit | Auswirkung auf Betrieb | Maßnahmen zur Risikominimierung                                         |
+|----------------------------------------------|---------------------------------------------------------------------------------------------|-----------------------------|------------------------|-------------------------------------------------------------------------|
+| **SSH-Restriktionen**                        | Einschränkung des Zugriffs durch Deaktivierung von Root-Login oder restriktive Cipher-Suites | mittel                      | hoch                   | Test in Baseline-Scan, Konsole als Fallback, gestufte Umsetzung         |
+| **Passwort- und Account-Policies**           | Strenge Regeln verhindern Logins oder führen zu Servicefehlern                               | mittel                      | mittel bis hoch        | Stufenweise Einführung, Dokumentation von Ausnahmen                      |
+| **SELinux Enforcement**                      | Unerwartete Blockaden bei Web-, App- oder DB-Diensten                                        | hoch                        | hoch                   | Vorab-Test im „permissive“-Modus, gezielte Policy-Anpassungen            |
+| **Sysctl-Parameter (Kernel)**                | Netzwerk- oder Speicher-Parameter beeinflussen Dienste (z. B. Shared Memory für DB)          | mittel                      | hoch                   | Analyse vor Rollout, Rücksetzpunkt über Snapshot                         |
+| **Auditd und Logging**                       | Exzessive Audit-Regeln erzeugen Lastspitzen oder füllen Dateisysteme                        | mittel                      | mittel                 | Limitierung der Regeln, zentrale Logrotation                             |
+| **Firewall/Netzwerkrestriktionen**           | Unbeabsichtigte Blockaden zwischen Web-, App- und DB-Schicht                                 | hoch                        | hoch                   | Tests mit isolierten Security Groups, gezielte Freigaben                 |
+| **Entfernen von Paketen/Diensten**           | Abhängigkeiten brechen, bestimmte Libraries fehlen                                           | mittel                      | hoch                   | Nur kontrolliertes Entfernen, Abgleich mit Applikationsanforderungen     |
+| **IPv6-Deaktivierung**                       | Interne Tools oder Skripte verlieren Konnektivität                                           | hoch                        | niedrig                | Dokumentierte Ausnahme (vgl. Kapitel 8.2)                                |
+| **Datenbank-Härtung (PostgreSQL, MariaDB)**  | Audit-/Auth-Änderungen beeinträchtigen Verbindungen                                          | niedrig bis mittel          | hoch                   | Getrennte Tests auf DB-Tier, Anpassung der DB-spezifischen SCAP-Checks   |
+| **Komplexität der Administration**           | Mehr Aufwand durch Policies, restriktive Defaults                                            | hoch                        | mittel                 | Schulung/Einweisung, klare Dokumentation der Abweichungen                 |
+
+Die Bewertung zeigt, dass besonders Maßnahmen wie SELinux-Enforcement, restriktive Sysctl-Parameter oder Firewall-Einstellungen ein hohes Risiko für die Funktionsfähigkeit haben. Solche Schritte wurden daher zunächst in Baseline-Scans geprüft und anschließend kontrolliert eingeführt. Funktionen mit potenziell kritischen Nebenwirkungen wurden zunächst im „permissive“- oder Testmodus aktiviert, bevor sie produktionsnah umgesetzt wurden.  
+
+Damit wurde gewährleistet, dass die Härtung der Systeme nicht nur sicherheitstechnisch wirksam, sondern auch betrieblich tragfähig blieb. Durch Snapshots, Rollback-Möglichkeiten und dokumentierte Ausnahmen konnte das Risiko von Ausfällen minimiert werden.  
+
 
 ## 4.3 Workflow: Scan, Reporting und Remediation
 
