@@ -274,6 +274,8 @@ in einer klassischen 3-Tier-Anwendungsarchitektur abbildeten:
         - Installierte Software: PostgreSQL 15 und MariaDB 10.11 (Primär-/Replica-Konfiguration)
         - Aufgabe: Persistente Speicherung von Anwendungsdaten, Benutzerkonten und Audit-Logs
 
+<img width="1786" height="714" alt="image" src="https://github.com/user-attachments/assets/ff5bb350-0f24-4065-a4ec-de8d8a1bf5b9" />
+
 Die Systeme waren in einem isolierten Unternehmensnetzwerk mit drei logischen Subnetzen (Web, App, DB) segmentiert.  
 Zwischen den Segmenten waren nur die notwendigen Verbindungen erlaubt,  
 um ein realistisches Sicherheitsmodell abzubilden.
