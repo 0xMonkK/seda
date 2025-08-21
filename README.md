@@ -27,7 +27,7 @@
 - [6. Fazit und Ausblick](#6-fazit-und-ausblick)
   - [6.1 Ausblick](#61-ausblick)
 
-# Einleitung
+# 1. Einleitung
 
 Die Absicherung von IT-Systemen ist ein zentraler Bestandteil moderner Unternehmenssicherheit.  
 Fehlkonfigurationen und unsichere Standardeinstellungen gehören nach wie vor zu den häufigsten Ursachen für Sicherheitsvorfälle in Unternehmensumgebungen.  
